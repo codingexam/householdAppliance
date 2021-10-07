@@ -25,52 +25,51 @@ import io.swagger.annotations.ApiOperation;
 public class ApplianceController {
 	
 	@Autowired
-	private ApplianceService applianceService;
+	private ApplianceService service;
 	
 	// get all appliances
 	@GetMapping("/appliances")
-	@ApiOperation(value = "Finds all Appliances",
-	  responseContainer = "List")
+	@ApiOperation(value = "Finds all appliances",
+				  responseContainer = "List")
 	public ResponseEntity<List<Appliance>> getAllAppliances(){
-		return new ResponseEntity<List<Appliance>>(applianceService.getAllappliances(), HttpStatus.OK);
+		return new ResponseEntity<List<Appliance>>(service.getAllAppliances(), HttpStatus.OK);
 	}
 		
-	// get appliance by serial number
+	// get single appliance by serial number
 	@GetMapping("/appliance")
-	@ApiOperation(value = "Finds an appliance by serial number",
+	@ApiOperation(value = "Finds single appliance by serial number",
 				  response = Appliance.class)
-	public ResponseEntity<Appliance> getApplianceBySerialNum(@RequestParam("serialnum") long serialNum){
-		return new ResponseEntity<Appliance>(applianceService.getApplianceBySerialNum(serialNum), HttpStatus.OK);
+	public ResponseEntity<Appliance> getSingleAppliance(@RequestParam("serialnum") long serialNum){
+		return new ResponseEntity<Appliance>(service.getSingleAppliance(serialNum), HttpStatus.OK);
 	}
 	
 	// add new appliance
-	@PostMapping("/appliances")
+	@PostMapping("/appliance")
 	@ApiOperation(value = "Adds a new appliance",
 			      response = Appliance.class)
 	public ResponseEntity<Appliance> addAppliance(@Validated @RequestBody Appliance appliance) {
-		return new ResponseEntity<Appliance>(applianceService.addAppliance(appliance), HttpStatus.OK);
+		return new ResponseEntity<Appliance>(service.addAppliance(appliance), HttpStatus.OK);
 	}
 	
 	// update an existing appliance using serial number
-	@PutMapping
+	@PutMapping("/appliance")
 	@ApiOperation(value = "Updates an appliance using serial number",
 				  response = Appliance.class)
-	public ResponseEntity<Appliance> updateAppliance(@RequestBody Appliance appliance) {
-		return new ResponseEntity<Appliance>(applianceService.updateAppliance(appliance), HttpStatus.OK);
+	public Appliance updateAppliance(@RequestBody Appliance appliance) {
+		return service.updateAppliance(appliance);
 	}
 	
 	// delete an appliance using serial number
-	@DeleteMapping("/remove")
-	@ApiOperation(value = "Deletes an appliance by serial number",
-				  response = HttpStatus.class)
-	public ResponseEntity<HttpStatus> deleteAppliance(@RequestParam("serialnum") long serialNum) {
-		return new ResponseEntity<HttpStatus>(applianceService.deleteAppliance(serialNum));
+	@DeleteMapping("/appliance/remove")
+	@ApiOperation(value = "Deletes an appliance by serial number")
+	public void deleteAppliance(@RequestParam("serialnum") long serialNum) {
+		service.deleteAppliance(serialNum);
 	}
 	
 	// delete all appliances
-	@DeleteMapping("/remove-all")
+	@DeleteMapping("/appliance/remove-all")
 	@ApiOperation(value = "Delete all appliances")
-	public ResponseEntity<HttpStatus> deleteAllAppliances() {
-		return null;
+	public void deleteAllAppliances() {
+		service.deleteAllAppliances();
 	}
 }
