@@ -3,7 +3,7 @@ package com.appliance;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//main application
+//main application run
 @SpringBootApplication ()
 public class HouseholdApplicanceApplication {
 
