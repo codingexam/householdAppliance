@@ -42,9 +42,9 @@ public class ApplianceControllerTests {
 	@Autowired
     ObjectMapper mapper;
 	
-	Appliance appliance1 = new Appliance(1L, 10L, "Samsung", "TV", "USING", LocalDate.now());
-	Appliance appliance2 = new Appliance(2L, 20L, "HP", "PC", "USING", LocalDate.now());
-	Appliance appliance3 = new Appliance(3L, 30L, "Intel", "PCM", "NOT USING", LocalDate.now());
+	Appliance appliance1 = new Appliance(1111, "Samsung", "TV", "USING", LocalDate.now());
+	Appliance appliance2 = new Appliance(2222, "HP", "PC", "USING", LocalDate.now());
+	Appliance appliance3 = new Appliance(3333,  "Intel", "PCM", "NOT USING", LocalDate.now());
 	List<Appliance> appliances = new ArrayList<Appliance>();
 
 	@Before
@@ -98,7 +98,7 @@ public class ApplianceControllerTests {
 	
 	@Test
 	public void updateAppliance_success() throws Exception {
-		Appliance updatedAppliance = new Appliance(1L, 10L, "Samsung-NEW", "TV", "NOT USING", LocalDate.now());
+		Appliance updatedAppliance = new Appliance(4444, "Samsung-NEW", "TV", "NOT USING", LocalDate.now());
 	    
 		Mockito.when(service.getSingleAppliance(appliance1.getSerialNumber())).thenReturn(appliance1);
 		Mockito.when(service.updateAppliance(updatedAppliance)).thenReturn(updatedAppliance);
