@@ -5,10 +5,13 @@ import java.util.List;
 import com.appliance.entity.Appliance;
 
 public interface ApplianceService{
-	public Appliance getSingleAppliance(long serialNum);
+	public Appliance getSingleAppliance(Integer serialNum);
 	public List<Appliance> getAllAppliances();
 	public Appliance addAppliance(Appliance appliance);
-	public Appliance updateAppliance(Appliance appliance);
-	public void deleteAppliance(long serialNum);
+	public String updateAppliance(Appliance appliance);
+	public void deleteAppliance(Integer serialNum);
 	public void deleteAllAppliances();
+	public Appliance applianceByModel(String model);
+	public Appliance applianceByBrand(String brand);
+	
 }
