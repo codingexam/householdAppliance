@@ -1,0 +1,26 @@
+server:
+  port:
+    9091
+  
+spring:
+  application:
+    name: APPLIANCE-SERVICE
+  h2:
+    console:
+      enabled:true
+  datasource:
+    url:
+      jdbc:h2:mem:test
+    data:
+      classpath:data.sql
+  jpa:
+    databasePlatform:org.hibernate.dialect.H2Dialect
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost

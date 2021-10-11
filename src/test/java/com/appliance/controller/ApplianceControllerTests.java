@@ -65,7 +65,7 @@ public class ApplianceControllerTests {
 			    .andExpect(status().isOk())
 			    .andExpect(jsonPath("$", hasSize(3)))
 			    .andExpect(jsonPath("$[1].brand", is("HP")));
-	}
+	} 
 	
 	@Test
 	public void getSingleAppliance_success() throws Exception{

@@ -60,14 +60,14 @@ public class ApplianceController {
 	}
 	
 	// delete an appliance using serial number
-	@DeleteMapping("/appliance/remove")
+	@DeleteMapping("/appliance")
 	@ApiOperation(value = "Deletes an appliance by serial number")
 	public void deleteAppliance(@RequestParam("serialnum") long serialNum) {
 		service.deleteAppliance(serialNum);
 	}
 	
 	// delete all appliances
-	@DeleteMapping("/appliance/remove-all")
+	@DeleteMapping("/appliances")
 	@ApiOperation(value = "Delete all appliances")
 	public void deleteAllAppliances() {
 		service.deleteAllAppliances();
