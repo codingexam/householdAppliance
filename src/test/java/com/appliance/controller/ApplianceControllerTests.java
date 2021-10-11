@@ -42,9 +42,9 @@ public class ApplianceControllerTests {
 	@Autowired
     ObjectMapper mapper;
 	
-	Appliance appliance1 = new Appliance(1L, 10L, "Samsung", "TV", "USING", LocalDate.now());
-	Appliance appliance2 = new Appliance(2L, 20L, "HP", "PC", "USING", LocalDate.now());
-	Appliance appliance3 = new Appliance(3L, 30L, "Intel", "PCM", "NOT USING", LocalDate.now());
+	Appliance appliance1 = new Appliance(1111, "Samsung", "TV", "USING", LocalDate.now(), 002);
+	Appliance appliance2 = new Appliance(2222, "HP", "PC", "USING", LocalDate.now(), 002);
+	Appliance appliance3 = new Appliance(3333,  "Intel", "PCM", "NOT USING", LocalDate.now(), 002);
 	List<Appliance> appliances = new ArrayList<Appliance>();
 
 	@Before
@@ -58,14 +58,14 @@ public class ApplianceControllerTests {
 		appliances.add(appliance2);
 		appliances.add(appliance3);
 		
-		Mockito.when(service.getAllAppliances()).thenReturn(appliances);
+		Mockito.when(service.getAllAppliances(002)).thenReturn(appliances);
 		
 		mockMvc.perform(get("/api/appliances")
 			    .contentType(MediaType.APPLICATION_JSON))
 			    .andExpect(status().isOk())
 			    .andExpect(jsonPath("$", hasSize(3)))
 			    .andExpect(jsonPath("$[1].brand", is("HP")));
-	} 
+	}
 	
 	@Test
 	public void getSingleAppliance_success() throws Exception{
@@ -98,7 +98,7 @@ public class ApplianceControllerTests {
 	
 	@Test
 	public void updateAppliance_success() throws Exception {
-		Appliance updatedAppliance = new Appliance(1L, 10L, "Samsung-NEW", "TV", "NOT USING", LocalDate.now());
+		Appliance updatedAppliance = new Appliance(4444, "Samsung-NEW", "TV", "NOT USING", LocalDate.now(), 002);
 	    
 		Mockito.when(service.getSingleAppliance(appliance1.getSerialNumber())).thenReturn(appliance1);
 		Mockito.when(service.updateAppliance(updatedAppliance)).thenReturn(updatedAppliance);
@@ -127,7 +127,7 @@ public class ApplianceControllerTests {
 	
 	@Test
 	public void deleteAllAppliances_success() throws Exception {
-	    Mockito.when(service.getAllAppliances()).thenReturn(appliances);
+	    Mockito.when(service.getAllAppliances(002)).thenReturn(appliances);
 
 	    mockMvc.perform(MockMvcRequestBuilders
 	            .delete("/api/appliance/remove-all")

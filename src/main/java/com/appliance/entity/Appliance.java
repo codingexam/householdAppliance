@@ -1,40 +1,77 @@
 package com.appliance.entity;
 
+
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+
+import com.appliance.user.entity.User;
+
+
 
 @Entity
+@Table(name="HOUSEHOLD_APPLIANCE", uniqueConstraints = {@UniqueConstraint(columnNames = {"userId"})})
 public class Appliance {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long serialNumber;
-	private long userId;
-	private String brand;
-	private String model;
-	private String status;
-	private LocalDate dateBought;
+	@Column(name = "serialNumber")
+	private Integer serialNumber;
 
-	Appliance() {}
+	@Column(name = "brand")
+	@NotNull(message = "brand should not be null")
+	private String brand;
+
+	@Column(name = "model")
+	@NotNull(message = "model should not be null")
+	private String model;
+
+	@Column(name = "status")
+	@NotNull(message = "status should be either Active or Inactive")
+	private String status;
+
+	@Column(name = "dateBought")
+	private LocalDate dateBought;
 	
-	public Appliance(long serialNumber, long userId, String brand, String model, String status, LocalDate localDate) {
+	@Column(name = "userId")
+	@NotNull(message = "userId should not be null")
+	private long userId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user.userId")
+	private User user;
+
+	public Appliance() {
+	}
+
+	public Appliance(Integer serialNumber, @NotNull(message = "brand should not be null") String brand,
+			@NotNull(message = "model should not be null") String model,
+			@NotNull(message = "status should be either Active or Inactive") String status, LocalDate dateBought, long userId) {
+		super();
 		this.serialNumber = serialNumber;
-		this.userId = userId;
 		this.brand = brand;
 		this.model = model;
 		this.status = status;
-		this.dateBought = localDate;
+		this.dateBought = dateBought;
+		this.userId = userId;
 	}
 
-	public long getSerialNumber() {
+	public Integer getSerialNumber() {
 		return serialNumber;
 	}
 
-	public void setSerialNumber(long serialNumber) {
+	public void setSerialNumber(Integer serialNumber) {
 		this.serialNumber = serialNumber;
 	}
 
@@ -69,30 +106,34 @@ public class Appliance {
 	public void setDateBought(LocalDate dateBought) {
 		this.dateBought = dateBought;
 	}
-
+	
 	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUsername(long userId) {
 		this.userId = userId;
 	}
 
 	public boolean equals(Object o) {
 		if (this == o)
-		      return true;
-		    if (!(o instanceof Appliance))
-		      return false;
-		    Appliance appliance = (Appliance) o;
-		    return Objects.equals(this.serialNumber, appliance.serialNumber) && Objects.equals(this.brand, appliance.brand)
-		        && Objects.equals(this.model, appliance.model);
+			return true;
+		if (!(o instanceof Appliance))
+			return false;
+		Appliance appliance = (Appliance) o;
+		return Objects.equals(this.serialNumber, appliance.serialNumber) && Objects.equals(this.brand, appliance.brand)
+				&& Objects.equals(this.model, appliance.model);
 	}
-	
+
 	public int hashCode() {
 		return Objects.hash(this.serialNumber, this.brand, this.model);
 	}
-	
+
+	@Override
 	public String toString() {
-		return "Appliance{" + "serialNumber=" + this.serialNumber + ", brand='" + this.brand + '\'' + ", model='" + this.model + '\'' + '}';
+		return "Appliance [serialNumber=" + serialNumber + ", brand=" + brand + ", model=" + model + ", status="
+				+ status + ", dateBought=" + dateBought + "]";
 	}
+
+	
 }

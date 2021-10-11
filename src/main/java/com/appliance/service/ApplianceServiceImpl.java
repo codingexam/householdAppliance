@@ -1,6 +1,9 @@
 package com.appliance.service;
 
 import java.util.List;
+
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.appliance.entity.Appliance;
@@ -17,13 +20,16 @@ public class ApplianceServiceImpl implements ApplianceService{
 	}
 
 	@Override
-	public List<Appliance> getAllAppliances() {
-		List<Appliance> appliances = repository.findAll();
+	public List<Appliance> getAllAppliances(long userId) {
+		List<Appliance> appliances = repository.findByUserId(userId);
 		return appliances;
 	}
 
 	@Override
 	public Appliance addAppliance(Appliance appliance) {
+		if(appliance.getBrand()==null) {
+			throw new RuntimeException("");
+		}
 		return repository.save(appliance);
 	}
 
