@@ -16,5 +16,5 @@ public class ApplianceInactiveException extends RuntimeException{
    public void ApplianceWithSameBrandException() {
 		
 	}
-	
+   
 }

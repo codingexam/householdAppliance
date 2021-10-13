@@ -1,5 +1,7 @@
 package com.appliance.controller;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -7,6 +9,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -73,6 +76,7 @@ public class ApplianceController {
 		logger.info("appliance deleted");
 		service.deleteAppliance(serialNum);
 	}
+	
 
 	// delete all appliances
 	@DeleteMapping("/appliances")
@@ -82,19 +86,26 @@ public class ApplianceController {
 	}
 
 	//  all appliances by brand
-	@GetMapping("/appliance/{brand}")
+	@GetMapping("/appliances/{brand}")
 	@ApiOperation("Get appliance info by brand")
-	Appliance applianceByModel(@PathVariable String brand){
+	List<Appliance> applianceByModel(@PathVariable String brand){
 		return service.applianceByBrand(brand);
 	}
 	
     //  all appliances by model
-    @GetMapping("/product/{model}")
+    @GetMapping("/appliances/{model}")
 	@ApiOperation("Get appliance info by model")
-    Appliance productById(@PathVariable String model){
+    List<Appliance> applianceById(@PathVariable String model){
 		return service.applianceByModel(model);
-		
-
+    }	
+    
+	//  all appliances by Date
+	 @GetMapping("/applianceDates")
+     @ApiOperation("Get appliances info by date")
+	 List<Appliance> applianceByDate(@RequestParam("dateBought") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate dateBought){
+			return service.applianceByDate(dateBought);
 
 }
+	    
+
 }

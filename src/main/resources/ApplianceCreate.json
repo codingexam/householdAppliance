@@ -1,7 +1,7 @@
 {
-        "serialNumber": 222,
-        "brand": "Yoga",
-        "model": "",
-        "status": 300.0,
-        "dateBought": 10.0
+    "serialNumber": 3,
+    "brand": "General Electric",
+    "model": "GE400",
+    "status": "active",
+    "dateBought": "2021-10-23"
 }

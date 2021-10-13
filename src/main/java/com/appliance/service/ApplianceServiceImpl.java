@@ -1,8 +1,11 @@
 package com.appliance.service;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,14 +79,20 @@ public class ApplianceServiceImpl implements ApplianceService{
 	}
 
 	@Override
-	public Appliance applianceByModel(String model) {
-		return appliances.stream().filter(appliance-> appliance.getModel() == model).findAny().get();
+	public List<Appliance>applianceByModel(String model) {
+		return appliances.stream().filter(appliance-> appliance.getModel().equalsIgnoreCase(model)).collect(Collectors.toList());
 	}
 
 	@Override
-	public Appliance applianceByBrand(String brand) {
+	public List<Appliance> applianceByBrand(String brand) {
 
-		return appliances.stream().filter(appliance-> appliance.getModel() == brand).findAny().get();
+		return appliances.stream().filter(appliance-> appliance.getBrand().equalsIgnoreCase(brand)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Appliance> applianceByDate(LocalDate dateBought) {
+		return appliances.stream().filter(appliance-> appliance.getDateBought()==dateBought)
+				.collect(Collectors.toList());
 	}
 	
 }
