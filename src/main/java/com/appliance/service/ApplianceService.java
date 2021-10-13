@@ -1,6 +1,7 @@
 package com.appliance.service;
 
-import java.time.LocalDate;
+
+import java.util.Date;
 import java.util.List;
 
 import com.appliance.entity.Appliance;
@@ -14,7 +15,12 @@ public interface ApplianceService{
 	public void deleteAllAppliances();
 	public List<Appliance> applianceByModel(String model);
 	public List<Appliance> applianceByBrand(String brand);
-	//public List<Appliance> applianceByDate(LocalDate dateBought);
+	public List<Appliance> applianceByStatus(String status);
+	public List<Appliance> applianceByDate(Date dateBought);
+	
+	
+	
+	
 	
 	
 }

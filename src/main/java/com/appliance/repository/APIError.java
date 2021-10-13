@@ -1,4 +1,4 @@
-package com.appliance.dto;
+package com.appliance.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;

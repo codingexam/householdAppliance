@@ -1,6 +1,7 @@
 package com.appliance.service;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,30 +75,35 @@ public class ApplianceServiceImpl implements ApplianceService {
 
 	@Override
 	public List<Appliance> applianceByModel(String model) {
-		/*
-		 * return repository.findAll().stream().filter(appliance ->
-		 * appliance.getModel().equalsIgnoreCase(model)) .collect(Collectors.toList());
-		 */
-		return repository.findApplianceByModel(model);
+
+		return repository.findAll().stream().filter(appliance -> appliance.getModel().equalsIgnoreCase(model))
+				.collect(Collectors.toList());
+
 	}
 
 	@Override
 	public List<Appliance> applianceByBrand(String brand) {
-		return repository.findApplianceByBrand(brand);
+		// return repository.findApplianceByBrand(brand);
 
-		// return repository.findAll().stream().filter(appliance->
-		// appliance.getBrand().equalsIgnoreCase(brand)).collect(Collectors.toList());
+		return repository.findAll().stream().filter(appliance -> appliance.getBrand().equalsIgnoreCase(brand))
+				.collect(Collectors.toList());
 	}
 
-	/*
-	 * @Override public List<Appliance> applianceByDate(LocalDate dateBought) {
-	 * 
-	 * return repository.findApplianceByDate(dateBought);
-	 * 
-	 * return repository.findAll().stream().filter(appliance->
-	 * appliance.getDateBought()==dateBought) .collect(Collectors.toList());
-	 * 
-	 * }
-	 */
+	@Override
+	public List<Appliance> applianceByStatus(String status) {
+		return repository.findAll().stream().filter(appliance -> appliance.getStatus().equalsIgnoreCase(status))
+				.collect(Collectors.toList());
+
+	}
+
+	@Override
+	public List<Appliance> applianceByDate(Date dateBought) {
+
+		// return repository.findByDate(dateBought);	  
+		  return repository.findAll().stream().filter(appliance->
+		  appliance.getDateBought().equals(dateBought)) .collect(Collectors.toList());
+		 
+
+	}
 
 }

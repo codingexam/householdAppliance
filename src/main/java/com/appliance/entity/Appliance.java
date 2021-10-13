@@ -1,8 +1,11 @@
+
+
 package com.appliance.entity;
 
 
 
-import java.time.LocalDate;
+
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +13,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
@@ -44,19 +45,17 @@ public class Appliance {
 	
 	
 	@Column(name = "DATEBOUGHT")
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	@NotNull(message = "date must be specified")
-	private LocalDate dateBought;
+	private Date dateBought;
 	
-	
-    
 
 	public Appliance() {
 	}
 
 	public Appliance(Integer serialNumber, @NotNull(message = "brand should not be null") String brand,
 			@NotNull(message = "model should not be null") String model,
-			@NotNull(message = "status should be either Active or Inactive") String status, LocalDate dateBought) {
+			@NotNull(message = "status should be either Active or Inactive") String status, Date dateBought) {
 		super();
 		this.serialNumber = serialNumber;
 		this.brand = brand;
@@ -97,11 +96,11 @@ public class Appliance {
 		this.status = status;
 	}
 
-	public LocalDate getDateBought() {
+	public Date getDateBought() {
 		return dateBought;
 	}
 
-	public void setDateBought(LocalDate dateBought) {
+	public void setDateBought(Date dateBought) {
 		this.dateBought = dateBought;
 	}
 
@@ -127,3 +126,4 @@ public class Appliance {
 
 	
 }
+

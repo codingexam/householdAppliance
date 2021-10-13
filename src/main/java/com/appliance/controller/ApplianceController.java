@@ -1,6 +1,7 @@
 package com.appliance.controller;
 
-import java.time.LocalDate;
+
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -86,27 +87,33 @@ public class ApplianceController {
 	// all appliances by brand
 	@GetMapping("/applianceBrands/{brand}")
 	@ApiOperation("Get appliance info by brand")
-	List<Appliance> applianceByModel(@PathVariable String brand) {
+	List<Appliance> applianceByBrand(@PathVariable String brand) {
 		return service.applianceByBrand(brand);
 	}
 
 	// all appliances by model
 	@GetMapping("applianceModels/{model}")
 	@ApiOperation("Get appliance info by model")
-	List<Appliance> applianceById(@PathVariable String model) {
+	List<Appliance> applianceByModel(@PathVariable String model) {
 		return service.applianceByModel(model);
 	}
 
+	
 	// all appliances by Date
-	/*
-	 * @GetMapping("/applianceDates")
-	 * 
-	 * @ApiOperation("Get appliances info by date") List<Appliance>
-	 * applianceByDate(@RequestParam("dateBought") @DateTimeFormat(pattern=
-	 * "yyyy-MM-dd") LocalDate dateBought){ return
-	 * service.applianceByDate(dateBought);
-	 */
+	@GetMapping("/applianceDates")
+	@ApiOperation("Get appliances info by date")
+	List<Appliance> applianceByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateBought) {
+		return service.applianceByDate(dateBought);
 
-//}
+	}
 
+	// all appliances by status
+	@GetMapping("applianceStatus/{status}")
+	@ApiOperation("Get appliance info by status")
+	List<Appliance> applianceByStatus(@PathVariable String status) {
+		return service.applianceByStatus(status);
+
+	}
+
+	
 }
