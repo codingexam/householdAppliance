@@ -12,23 +12,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import javax.validation.constraints.NotNull;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
 @Entity
 @Table(name="HOUSEHOLD")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Appliance {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SERIALNUMBER")
 	private Integer serialNumber;
-
-	
 
 	@Column(name = "brand")
 	@NotNull(message = "brand should not be null")

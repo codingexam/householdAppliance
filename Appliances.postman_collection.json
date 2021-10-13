@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "43199500-c358-4c37-8efb-18ace40aa8e5",
+		"name": "Appliances",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:9091/api/appliance",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"serialNumber\": 1,\r\n        \"brand\": \"samsung\",\r\n        \"model\": \"SS200\",\r\n        \"status\": \"active\",\r\n        \"dateBought\": \"2021-10-13\"\r\n    }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/appliance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"appliance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9091/api/applianceModels/SS100",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/api/applianceModels/SS100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"applianceModels",
+						"SS100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9091/api/applianceBrands/samsung",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/api/applianceBrands/samsung",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"applianceBrands",
+						"samsung"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9091/api/appliances",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/api/appliances",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"appliances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9091/api/appliance?serialNumber=5",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9091/api/appliance?serialNumber=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"appliance"
+					],
+					"query": [
+						{
+							"key": "serialNumber",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9091/api/appliance?serialNum=16",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/appliance?serialNum=16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"appliance"
+					],
+					"query": [
+						{
+							"key": "serialNum",
+							"value": "16"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9091/api/appliance",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"model\": \"PHI1000\",\r\n        \"brand\": \"PHILPS\",\r\n        \"status\": \"active\",\r\n        \"dateBought\" : \"2021-10-24\"\r\n        \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9091/api/appliance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9091",
+					"path": [
+						"api",
+						"appliance"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -36,10 +36,5 @@ public class SwaggerConfig {
 		);
 	}
 
-	/*
-	 * @SuppressWarnings("deprecation") private ApiInfo apiDetails() { return new
-	 * ApiInfo("Appliance Microservice", "Sample Appliance App for Coding exam",
-	 * "1.0", "Free to use", new String("Learners"), "Sample License",
-	 * "http://example.com"); }
-	 */
+	
 }

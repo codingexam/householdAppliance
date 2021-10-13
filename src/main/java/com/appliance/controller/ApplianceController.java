@@ -1,7 +1,6 @@
 package com.appliance.controller;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -47,8 +46,8 @@ public class ApplianceController {
 	// get single appliance by serial number
 	@GetMapping("/appliance")
 	@ApiOperation(value = "Finds single appliance by serial number", response = Appliance.class)
-	public ResponseEntity<Appliance> getSingleAppliance(@RequestParam("serialnum") Integer serialNum) {
-		return new ResponseEntity<Appliance>(service.getSingleAppliance(serialNum), HttpStatus.OK);
+	public ResponseEntity<Appliance> getSingleAppliance(@RequestParam Integer serialNumber) {
+		return new ResponseEntity<Appliance>(service.getSingleAppliance(serialNumber), HttpStatus.OK);
 	}
 
 	// add new appliance
@@ -64,19 +63,18 @@ public class ApplianceController {
 	@ApiOperation(value = "Updates an appliance using serial number", response = Appliance.class)
 	public ResponseEntity<Appliance> updateAppliance(@RequestBody Appliance appliance) {
 		logger.info("appliance updated controller");
-		String status =  service.updateAppliance(appliance);
-		logger.info("Appliance updated status - {}",status);
+		String status = service.updateAppliance(appliance);
+		logger.info("Appliance updated status - {}", status);
 		return ResponseEntity.status(HttpStatus.OK).body(appliance);
 	}
 
 	// delete an appliance using serial number
 	@DeleteMapping("/appliance")
 	@ApiOperation(value = "Deletes an appliance by serial number")
-	public void deleteAppliance(@RequestParam("serialnum") Integer serialNum) {
+	public void deleteAppliance(@RequestParam Integer serialNum) {
 		logger.info("appliance deleted");
 		service.deleteAppliance(serialNum);
 	}
-	
 
 	// delete all appliances
 	@DeleteMapping("/appliances")
@@ -85,27 +83,30 @@ public class ApplianceController {
 		service.deleteAllAppliances();
 	}
 
-	//  all appliances by brand
-	@GetMapping("/appliances/{brand}")
+	// all appliances by brand
+	@GetMapping("/applianceBrands/{brand}")
 	@ApiOperation("Get appliance info by brand")
-	List<Appliance> applianceByModel(@PathVariable String brand){
+	List<Appliance> applianceByModel(@PathVariable String brand) {
 		return service.applianceByBrand(brand);
 	}
-	
-    //  all appliances by model
-    @GetMapping("/appliances/{model}")
-	@ApiOperation("Get appliance info by model")
-    List<Appliance> applianceById(@PathVariable String model){
-		return service.applianceByModel(model);
-    }	
-    
-	//  all appliances by Date
-	 @GetMapping("/applianceDates")
-     @ApiOperation("Get appliances info by date")
-	 List<Appliance> applianceByDate(@RequestParam("dateBought") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate dateBought){
-			return service.applianceByDate(dateBought);
 
-}
-	    
+	// all appliances by model
+	@GetMapping("applianceModels/{model}")
+	@ApiOperation("Get appliance info by model")
+	List<Appliance> applianceById(@PathVariable String model) {
+		return service.applianceByModel(model);
+	}
+
+	// all appliances by Date
+	/*
+	 * @GetMapping("/applianceDates")
+	 * 
+	 * @ApiOperation("Get appliances info by date") List<Appliance>
+	 * applianceByDate(@RequestParam("dateBought") @DateTimeFormat(pattern=
+	 * "yyyy-MM-dd") LocalDate dateBought){ return
+	 * service.applianceByDate(dateBought);
+	 */
+
+//}
 
 }
