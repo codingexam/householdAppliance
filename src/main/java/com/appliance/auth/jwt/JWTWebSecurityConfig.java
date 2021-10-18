@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,7 +29,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtUnAuthorizedResponseAuthenticationEntryPoint jwtUnAuthorizedResponseAuthenticationEntryPoint;
 
     @Autowired
-    private UserDetailsService jwtInMemoryUserDetailsService;
+    private UserDetailsService jwtUserDetailsService;
 
     @Autowired
     private JwtTokenAuthorizationOncePerRequestFilter jwtAuthenticationTokenFilter;
@@ -38,9 +40,21 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(jwtInMemoryUserDetailsService)
+            .userDetailsService(jwtUserDetailsService)
             .passwordEncoder(passwordEncoderBean());
     }
+    
+//    @Override
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception{
+//    	auth.authenticationProvider(daoAuthenticationProvider());
+//    }
+//    
+//    private AuthenticationProvider daoAuthenticationProvider() {
+//    	DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//    	provider.setUserDetailsService(jwtUserDetailsService);
+//    	provider.setPasswordEncoder(passwordEncoderBean());
+//    	return provider;
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoderBean() {
@@ -60,6 +74,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
             .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
+            .antMatchers("/register").permitAll()
             .anyRequest().authenticated();
 
        httpSecurity

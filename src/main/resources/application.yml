@@ -5,6 +5,8 @@ server:
 spring:
   application:
     name: APPLIANCE-SERVICE
+  jpa:
+    show-sql: true
   h2:
     console:
       enabled:true

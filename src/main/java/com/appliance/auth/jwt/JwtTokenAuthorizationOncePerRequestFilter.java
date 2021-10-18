@@ -43,6 +43,13 @@ public class JwtTokenAuthorizationOncePerRequestFilter extends OncePerRequestFil
 
         String username = null;
         String jwtToken = null;
+        String path = request.getRequestURI();
+        
+        if ("/register".equals(path)) {
+        	chain.doFilter(request, response);
+        	return;
+        }
+        
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {

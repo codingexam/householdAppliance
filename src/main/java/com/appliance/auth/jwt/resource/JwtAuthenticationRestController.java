@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,13 +48,19 @@ public class JwtAuthenticationRestController {
   @Autowired
   private UserService service;
   
+  private PasswordEncoder encoder;
+  
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
   @RequestMapping(value = "${api.new.user.uri}", method = RequestMethod.POST)
   public ResponseEntity<?> registerUser(@RequestBody User user)
-      throws AuthenticationException {
-
-	  service.addUser(user);
-	
-	  return ResponseEntity.ok(user);
+      throws Exception {
+	  try {
+		  service.addUser(user);
+		  return ResponseEntity.ok(user);
+	  }catch(Exception e) {
+		  return ResponseEntity.status(HttpStatus.CONFLICT).build();
+	  } 
   }
 
   @RequestMapping(value = "${jwt.get.token.uri}", method = RequestMethod.POST)
@@ -90,7 +99,7 @@ public class JwtAuthenticationRestController {
   private void authenticate(String username, String password) {
     Objects.requireNonNull(username);
     Objects.requireNonNull(password);
-
+    
     try {
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
     } catch (DisabledException e) {
