@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +32,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 @Api(description = "Home Appliance API having endpoints which are used interact with appliances microservice")
 public class ApplianceController {
 	private static final Logger logger = LoggerFactory.getLogger(ApplianceController.class);
@@ -54,7 +57,7 @@ public class ApplianceController {
 	// add new appliance
 	@PostMapping("/appliance")
 	@ApiOperation(value = "Adds a new appliance", response = Appliance.class)
-	public ResponseEntity<Appliance> addAppliance(@RequestBody @Valid Appliance appliance) {
+	public ResponseEntity<Appliance> addAppliance(@RequestBody @Validated Appliance appliance) {
 		logger.info("appliance added status");
 		return new ResponseEntity<Appliance>(service.addAppliance(appliance), HttpStatus.OK);
 	}
@@ -62,7 +65,7 @@ public class ApplianceController {
 	// update an existing appliance using serial number
 	@PutMapping("/appliance")
 	@ApiOperation(value = "Updates an appliance using serial number", response = Appliance.class)
-	public ResponseEntity<Appliance> updateAppliance(@RequestBody Appliance appliance) {
+	public ResponseEntity<Appliance> updateAppliance(@RequestBody @Validated Appliance appliance) {
 		logger.info("appliance updated controller");
 		String status = service.updateAppliance(appliance);
 		logger.info("Appliance updated status - {}", status);
@@ -74,7 +77,7 @@ public class ApplianceController {
 	@ApiOperation(value = "Deletes an appliance by serial number")
 	public void deleteAppliance(@RequestParam Integer serialNum) {
 		logger.info("appliance deleted");
-		service.deleteAppliance(serialNum);
+		service.deleteAppliance(serialNum); 
 	}
 
 	// delete all appliances
