@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 @Api(description = "Home Appliance API having endpoints which are used interact with appliances microservice")
 public class ApplianceController {
 	private static final Logger logger = LoggerFactory.getLogger(ApplianceController.class);
@@ -50,7 +52,7 @@ public class ApplianceController {
 	// add new appliance
 	@PostMapping("/appliance")
 	@ApiOperation(value = "Adds a new appliance", response = Appliance.class)
-	public ResponseEntity<Appliance> addAppliance(@RequestBody @Valid Appliance appliance) {
+    public ResponseEntity<Appliance> addAppliance(@RequestBody @Valid Appliance appliance) {
 		try {
 			logger.info("appliance added status");
 			Appliance appl = service.addAppliance(appliance);
@@ -60,8 +62,9 @@ public class ApplianceController {
 		catch (NoSuchElementException e) {
 			return new ResponseEntity<Appliance>(HttpStatus.NO_CONTENT);
 		}
-	}
 
+	
+	}
 	// update an existing appliance using serial number
 	/*
 	 * @PutMapping("/appliance")
@@ -93,6 +96,7 @@ public class ApplianceController {
 	// delete an appliance using serial number
 	@DeleteMapping("/appliance/{serialNum}")
 	@ApiOperation(value = "Deletes an appliance by serial number")
+
 	public ResponseEntity<Void> deleteAppliance(@PathVariable Integer serialNum) {
 		try{
 			logger.info("appliance deleted");
@@ -104,7 +108,8 @@ public class ApplianceController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 		
-	}
+
+	}	
 
 	// delete all appliances
 	@DeleteMapping("/appliances")
