@@ -104,24 +104,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
   
   
      
-  @Test 
-	  public void updateAppliance_success() throws Exception { Appliance
-	  updatedAppliance = new Appliance(4444, "Samsung-NEW", "TV", "Inactive",new
-	  java.util.Date(System.currentTimeMillis()));
-	  
-	  Mockito.when(service.getSingleAppliance(appliance1.getSerialNumber())).
-	  thenReturn(appliance1);
-	  Mockito.when(service.updateAppliance(updatedAppliance)).thenReturn("appliance update successfully");
-	  
-	  MockHttpServletRequestBuilder mockRequest =
-	  MockMvcRequestBuilders.put("/api/appliance")
-	  .contentType(MediaType.APPLICATION_JSON) .accept(MediaType.APPLICATION_JSON)
-	  .content(this.mapper.writeValueAsString(updatedAppliance));
-	  
-	  mockMvc.perform(mockRequest) .andExpect(status().isOk())
-	  .andExpect(jsonPath("$", notNullValue())) .andExpect(jsonPath("$.brand",
-	  is("Samsung-NEW"))) .andExpect(jsonPath("$.status", is("Inactive"))); }
-	  
+	/*
+	 * @Test public void updateAppliance_success() throws Exception { Appliance
+	 * updatedAppliance = new Appliance(4444, "Samsung-NEW", "TV", "Inactive",new
+	 * java.util.Date(System.currentTimeMillis()));
+	 * 
+	 * Mockito.when(service.getSingleAppliance(appliance1.getSerialNumber())).
+	 * thenReturn(appliance1);
+	 * Mockito.when(service.updateAppliance(updatedAppliance)).
+	 * thenReturn("appliance update successfully");
+	 * 
+	 * MockHttpServletRequestBuilder mockRequest =
+	 * MockMvcRequestBuilders.put("/api/appliance")
+	 * .contentType(MediaType.APPLICATION_JSON) .accept(MediaType.APPLICATION_JSON)
+	 * .content(this.mapper.writeValueAsString(updatedAppliance));
+	 * 
+	 * mockMvc.perform(mockRequest) .andExpect(status().isOk())
+	 * .andExpect(jsonPath("$", notNullValue())) .andExpect(jsonPath("$.brand",
+	 * is("Samsung-NEW"))) .andExpect(jsonPath("$.status", is("Inactive"))); }
+	 */
 	 
   @Test 
   public void deleteApplianceBySerialNum_success() throws Exception {
