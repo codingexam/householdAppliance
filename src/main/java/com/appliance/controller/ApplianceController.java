@@ -1,12 +1,11 @@
 package com.appliance.controller;
 
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +31,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/api")
 @CrossOrigin
 @Api(description = "Home Appliance API having endpoints which are used interact with appliances microservice")
 public class ApplianceController {
@@ -42,15 +40,21 @@ public class ApplianceController {
 	private ApplianceService service;
 
 	// get all appliances
-	@GetMapping("/appliances")
+	@GetMapping("/get-appliances")
 	@ApiOperation(value = "Finds all appliances", responseContainer = "List")
-	public ResponseEntity<List<Appliance>> getAllAppliances() {
-		return new ResponseEntity<List<Appliance>>(service.getAllAppliances(), HttpStatus.OK);
-	}	
-	 
+	public ResponseEntity<List<Appliance>> getAllAppliances(@RequestParam Integer userId) {
+		return new ResponseEntity<List<Appliance>>(service.getAllAppliances(userId), HttpStatus.OK);
+	}
+
+	// get single appliance by serial number
+	@GetMapping("/get-appliance")
+	@ApiOperation(value = "Finds single appliance by serial number", response = Appliance.class)
+	public ResponseEntity<Appliance> getSingleAppliance(@RequestParam Integer serialNumber) {
+		return new ResponseEntity<Appliance>(service.getSingleAppliance(serialNumber), HttpStatus.OK);
+	}
 
 	// add new appliance
-	@PostMapping("/appliance")
+	@PostMapping("/add-appliance")
 	@ApiOperation(value = "Adds a new appliance", response = Appliance.class)
     public ResponseEntity<Appliance> addAppliance(@RequestBody @Valid Appliance appliance) {
 		try {
@@ -66,6 +70,7 @@ public class ApplianceController {
 	
 	}
 	// update an existing appliance using serial number
+	@PutMapping("/update-appliance")
 	/*
 	 * @PutMapping("/appliance")
 	 * 

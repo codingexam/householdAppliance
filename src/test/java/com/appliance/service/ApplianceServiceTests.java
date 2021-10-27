@@ -1,11 +1,11 @@
 package com.appliance.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -40,7 +40,7 @@ class ApplianceServiceTests {
 				new Appliance(1111, "LG", "XYZ", "Active", new java.util.Date(System.currentTimeMillis())),
 				new Appliance(1111, "BRAND", "MODEL", "Inactive", new java.util.Date(System.currentTimeMillis())))
 				.collect(Collectors.toList()));
-		assertEquals(2, service.getAllAppliances().size());
+		assertEquals(2, service.getAllAppliances(101).size());
 	}
 
 	@Test
