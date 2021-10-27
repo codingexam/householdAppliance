@@ -9,7 +9,8 @@ import com.appliance.entity.Appliance;
 public interface ApplianceService{
 	public Appliance getSingleAppliance(Integer serialNumber);
 	public Appliance addAppliance(Appliance appliance);
-	public String updateAppliance(Appliance appliance);
+	//public String updateAppliance(Appliance appliance);
+	public void updateAppliance(Appliance appliance,Integer serialNumber );
 	public void deleteAppliance(Integer serialNum);
 	public void deleteAllAppliances();
 	public List<Appliance> applianceByModel(String model);
@@ -17,5 +18,10 @@ public interface ApplianceService{
 	public List<Appliance> applianceByStatus(String status);
 	public List<Appliance> applianceByDate(Date dateBought);
 	public List<Appliance> getAllAppliances(Integer userId);
+//	public List<Appliance> getAllAppliancesbySerialSort(Integer serialNumber, new PageRequest(0,5, serialNumber) );
+	
+	
+	
+	
 	
 }
