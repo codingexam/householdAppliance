@@ -1,32 +1,33 @@
+
+
 package com.appliance.entity;
 
 
-import java.time.LocalDate;
-import java.util.Objects;
 
+
+import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
-import com.appliance.user.entity.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
 @Entity
-@Table(name="HOUSEHOLD_APPLIANCE", uniqueConstraints = {@UniqueConstraint(columnNames = {"userId"})})
+@Table(name="HOUSEHOLD")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Appliance {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "serialNumber")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "SERIALNUMBER")
 	private Integer serialNumber;
 
 	@Column(name = "brand")
@@ -41,30 +42,26 @@ public class Appliance {
 	@NotNull(message = "status should be either Active or Inactive")
 	private String status;
 
-	@Column(name = "dateBought")
-	private LocalDate dateBought;
 	
-	@Column(name = "userId")
-	@NotNull(message = "userId should not be null")
-	private long userId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user.userId")
-	private User user;
+	@Column(name = "DATEBOUGHT")
+	@Temporal(TemporalType.DATE)
+	@NotNull(message = "date must be specified")
+	private Date dateBought;
+	
 
 	public Appliance() {
 	}
 
 	public Appliance(Integer serialNumber, @NotNull(message = "brand should not be null") String brand,
 			@NotNull(message = "model should not be null") String model,
-			@NotNull(message = "status should be either Active or Inactive") String status, LocalDate dateBought, long userId) {
+			@NotNull(message = "status should be either Active or Inactive") String status, Date dateBought) {
 		super();
 		this.serialNumber = serialNumber;
 		this.brand = brand;
 		this.model = model;
 		this.status = status;
 		this.dateBought = dateBought;
-		this.userId = userId;
 	}
 
 	public Integer getSerialNumber() {
@@ -99,20 +96,12 @@ public class Appliance {
 		this.status = status;
 	}
 
-	public LocalDate getDateBought() {
+	public Date getDateBought() {
 		return dateBought;
 	}
 
-	public void setDateBought(LocalDate dateBought) {
+	public void setDateBought(Date dateBought) {
 		this.dateBought = dateBought;
-	}
-	
-	public long getUserId() {
-		return userId;
-	}
-
-	public void setUsername(long userId) {
-		this.userId = userId;
 	}
 
 	public boolean equals(Object o) {
@@ -137,3 +126,4 @@ public class Appliance {
 
 	
 }
+

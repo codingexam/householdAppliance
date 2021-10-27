@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -18,7 +19,11 @@ public class SwaggerConfig {
 
 	@Bean
 	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select().paths(PathSelectors.ant("/api/*")).build()
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.paths(PathSelectors.any())
+				.apis(RequestHandlerSelectors.basePackage("com.appliance.controller"))
+				.build()
 				.apiInfo(getApiInfo());
 	}
 
@@ -36,10 +41,5 @@ public class SwaggerConfig {
 		);
 	}
 
-	/*
-	 * @SuppressWarnings("deprecation") private ApiInfo apiDetails() { return new
-	 * ApiInfo("Appliance Microservice", "Sample Appliance App for Coding exam",
-	 * "1.0", "Free to use", new String("Learners"), "Sample License",
-	 * "http://example.com"); }
-	 */
+	
 }
