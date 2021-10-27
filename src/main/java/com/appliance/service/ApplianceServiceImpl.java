@@ -3,6 +3,7 @@ package com.appliance.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -29,9 +30,10 @@ public class ApplianceServiceImpl implements ApplianceService {
 	}
 
 	@Override
-	public List<Appliance> getAllAppliances() {
-		List<Appliance> appliances = repository.findAll();
-		return appliances;
+	public List<Appliance> getAllAppliances(Integer userId) {
+//		List<Appliance> appliances = repository.findAllById(userId);
+		return repository.findAll().stream().filter(appliance -> appliance.getUserid().equals(userId))
+				.collect(Collectors.toList());
 	}
 
 	@Override

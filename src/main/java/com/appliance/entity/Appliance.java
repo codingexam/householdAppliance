@@ -42,13 +42,13 @@ public class Appliance {
 	@NotNull(message = "status should be either Active or Inactive")
 	private String status;
 
-	
-	
 	@Column(name = "DATEBOUGHT")
 	@Temporal(TemporalType.DATE)
 	@NotNull(message = "date must be specified")
 	private Date dateBought;
 	
+	@Column(name = "userid")
+	private Integer userid;
 
 	public Appliance() {
 	}
@@ -102,6 +102,14 @@ public class Appliance {
 
 	public void setDateBought(Date dateBought) {
 		this.dateBought = dateBought;
+	}
+
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
 	}
 
 	public boolean equals(Object o) {

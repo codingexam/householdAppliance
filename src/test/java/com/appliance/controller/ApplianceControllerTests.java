@@ -54,12 +54,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
   
   
   @Test 
-  public void getAllAppliances_success() throws Exception{
+  public void getAllAppliances_success(Integer userId) throws Exception{
   appliances.add(appliance1); 
   appliances.add(appliance2);
   appliances.add(appliance3);
   
-  Mockito.when(service.getAllAppliances()).thenReturn(appliances);
+  Mockito.when(service.getAllAppliances(userId)).thenReturn(appliances);
   
   mockMvc.perform(get("/api/appliances")
   .contentType(MediaType.APPLICATION_JSON)) 
@@ -133,8 +133,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
   }
   
   @Test 
-  public void deleteAllAppliances_success() throws Exception {
-  Mockito.when(service.getAllAppliances()).thenReturn(appliances);
+  public void deleteAllAppliances_success(Integer userId) throws Exception {
+  Mockito.when(service.getAllAppliances(userId)).thenReturn(appliances);
   
   mockMvc.perform(MockMvcRequestBuilders.delete("/api/appliances")
   .contentType(MediaType.APPLICATION_JSON)) 
