@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,13 +48,6 @@ public class ApplianceController {
 		return new ResponseEntity<List<Appliance>>(service.getAllAppliances(userId), HttpStatus.OK);
 	}
 
-	// get single appliance by serial number
-	@GetMapping("/get-appliance")
-	@ApiOperation(value = "Finds single appliance by serial number", response = Appliance.class)
-	public ResponseEntity<Appliance> getSingleAppliance(@RequestParam Integer serialNumber) {
-		return new ResponseEntity<Appliance>(service.getSingleAppliance(serialNumber), HttpStatus.OK);
-	}
-
 	// add new appliance
 	@PostMapping("/add-appliance")
 	@ApiOperation(value = "Adds a new appliance", response = Appliance.class)
@@ -69,8 +64,8 @@ public class ApplianceController {
 
 	
 	}
+
 	// update an existing appliance using serial number
-	@PutMapping("/update-appliance")
 	/*
 	 * @PutMapping("/appliance")
 	 * 
@@ -83,7 +78,7 @@ public class ApplianceController {
 	 * ResponseEntity.status(HttpStatus.OK).body(appliance); }
 	 */
 
-	@PutMapping("/appliance/{serialNumber}")
+	@PutMapping("/edit-appliance/{serialNumber}")
 	@ApiOperation(value = "Updates an appliance using serial number", response = Appliance.class)
 	public ResponseEntity<Appliance> updateAppliance(@RequestBody Appliance appliance,
 			@PathVariable Integer serialNumber) {
@@ -99,7 +94,7 @@ public class ApplianceController {
 	}
 
 	// delete an appliance using serial number
-	@DeleteMapping("/appliance/{serialNum}")
+	@DeleteMapping("/remove-appliance/{serialNum}")
 	@ApiOperation(value = "Deletes an appliance by serial number")
 
 	public ResponseEntity<Void> deleteAppliance(@PathVariable Integer serialNum) {
@@ -117,19 +112,20 @@ public class ApplianceController {
 	}	
 
 	// delete all appliances
-	@DeleteMapping("/appliances")
+	@DeleteMapping("/remove-all-appliances")
 	@ApiOperation(value = "Delete all appliances")
 	public void deleteAllAppliances() {
 		service.deleteAllAppliances();
 	}
 	
-	@GetMapping("/appliance/{serialNumber}")
+	@GetMapping("/get-appliance")
 	@ApiOperation(value = "Finds single appliance by serial number", response = Appliance.class)
-	public ResponseEntity<Appliance> getSingleAppliance(@PathVariable Integer serialNumber) {
+	public ResponseEntity<Appliance> getSingleAppliance(@RequestParam Integer serialNumber) {
 		Appliance appl = service.getSingleAppliance(serialNumber);
 		
 		  if(appl==null)
-		  { return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		  { 
+			  return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		  } 
 		  return ResponseEntity.of(Optional.of(appl));
 		 
@@ -188,7 +184,7 @@ public class ApplianceController {
 	}
 
 	// all appliances by status
-	@GetMapping("appliancesByStatus/{status}")
+	@GetMapping("/appliancesByStatus/{status}")
 	@ApiOperation("Get appliance info by status")
 	ResponseEntity<List<Appliance>> applianceByStatus(@PathVariable String status) {
 		  	List<Appliance> list =  service.applianceByStatus(status);

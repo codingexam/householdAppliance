@@ -7,20 +7,16 @@ spring:
     name: APPLIANCE-SERVICE
   jpa:
     show-sql: true
+    databasePlatform: org.hibernate.dialect.H2Dialect
+
   h2:
     console:
-      enabled:true
+      enabled: true
   datasource:
     url:
       jdbc:h2:mem:test
     data:
       classpath:data.sql
-  jpa:
-    databasePlatform:org.hibernate.dialect.H2Dialect
-
-spring:
-  application:
-    name: APPLIANCE-SERVER
   
 eureka:
   client:

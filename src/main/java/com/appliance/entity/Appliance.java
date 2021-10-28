@@ -55,13 +55,14 @@ public class Appliance {
 
 	public Appliance(Integer serialNumber, @NotNull(message = "brand should not be null") String brand,
 			@NotNull(message = "model should not be null") String model,
-			@NotNull(message = "status should be either Active or Inactive") String status, Date dateBought) {
+			@NotNull(message = "status should be either Active or Inactive") String status, Date dateBought, Integer userId) {
 		super();
 		this.serialNumber = serialNumber;
 		this.brand = brand;
 		this.model = model;
 		this.status = status;
 		this.dateBought = dateBought;
+		this.userid = userId;
 	}
 
 	public Integer getSerialNumber() {

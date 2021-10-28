@@ -37,8 +37,8 @@ class ApplianceServiceTests {
 	@Test
 	public void getAllAppliancesTest() {
 		when(repository.findAll()).thenReturn(Stream.of(
-				new Appliance(1111, "LG", "XYZ", "Active", new java.util.Date(System.currentTimeMillis())),
-				new Appliance(1111, "BRAND", "MODEL", "Inactive", new java.util.Date(System.currentTimeMillis())))
+				new Appliance(1111, "LG", "XYZ", "Active", new java.util.Date(System.currentTimeMillis()),101),
+				new Appliance(1111, "BRAND", "MODEL", "Inactive", new java.util.Date(System.currentTimeMillis()),101))
 				.collect(Collectors.toList()));
 		assertEquals(2, service.getAllAppliances(101).size());
 	}
@@ -47,7 +47,7 @@ class ApplianceServiceTests {
 	public void getSingleApplianceTest() {
 		Integer serialNumber = 1111;
 		Appliance appliance = new Appliance(1111, "LG", "XYZ", "Active",
-				new java.util.Date(System.currentTimeMillis()));
+				new java.util.Date(System.currentTimeMillis()),101);
 		when(repository.getById(serialNumber)).thenReturn(appliance);
 		assertEquals(appliance, service.getSingleAppliance(serialNumber));
 		verify(repository, times(1)).getById(serialNumber);
@@ -57,7 +57,7 @@ class ApplianceServiceTests {
 	@Test
 	public void addApplianceTest() {
 		Appliance appliance = new Appliance(2222, "LG", "XYZ", "Active",
-				new java.util.Date(System.currentTimeMillis()));
+				new java.util.Date(System.currentTimeMillis()),101);
 		when(repository.save(appliance)).thenReturn(appliance);
 		assertEquals(appliance, service.addAppliance(appliance));
 	    verify(repository, times(1)).save(appliance);
@@ -67,7 +67,7 @@ class ApplianceServiceTests {
 	@Test
 	public void updateApplianceTest() {
 		Appliance updatedAppliance = new Appliance(3333, "LG", "XYZ", "Active",
-				new java.util.Date(System.currentTimeMillis()));
+				new java.util.Date(System.currentTimeMillis()),101);
         when(repository.getById(updatedAppliance.getSerialNumber())).thenReturn(updatedAppliance);
         
 		//when(repository.save(updatedAppliance)).thenReturn(updatedAppliance);
@@ -79,7 +79,7 @@ class ApplianceServiceTests {
 	@Test
 	public void deleteApplianceTest() {
 		Appliance appliance = new Appliance(1111, "LG", "XYZ", "Active",
-				new java.util.Date(System.currentTimeMillis()));
+				new java.util.Date(System.currentTimeMillis()),101);
 		service.deleteAppliance(appliance.getSerialNumber());
 		verify(repository, times(1)).deleteById(appliance.getSerialNumber());
 	}
@@ -94,21 +94,21 @@ class ApplianceServiceTests {
 	public void applianceByBrandTest() {
 		String brand = "PHILPS";
 		Appliance appliance = new Appliance(1111, "PHILPS", "XYZ", "Active",
-				new java.util.Date(System.currentTimeMillis()));
+				new java.util.Date(System.currentTimeMillis()),101);
 		
 	}
 	@Test
 	public void applianceByModelTest() {
 		String model = "XYZ";
 		Appliance appliance = new Appliance(1111, "PHILPS", "XYZ", "Active",
-				new java.util.Date(System.currentTimeMillis()));
+				new java.util.Date(System.currentTimeMillis()),101);
 		
 	}
 	@Test
 	public void applianceByStatusTest() {
 		String status = "Active";
 		Appliance appliance = new Appliance(1111, "PHILPS", "XYZ", "Active",
-				new java.util.Date(System.currentTimeMillis()));
+				new java.util.Date(System.currentTimeMillis()),101);
 		
 	}
 	@Test

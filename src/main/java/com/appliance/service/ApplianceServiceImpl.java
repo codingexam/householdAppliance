@@ -33,9 +33,9 @@ public class ApplianceServiceImpl implements ApplianceService {
 		// appl =
 		// repository.findAll().stream().filter(app->app.getSerialNumber()==serialNumber).findAny().orElse(null);
 		try {
-			// appl = repository.getById(serialNumber);
-			appl = repository.findAll().stream().filter(app -> app.getSerialNumber() == serialNumber).findAny()
-					.orElse(null);
+			 appl = repository.getById(serialNumber);
+//			appl = repository.findAll().stream().filter(app -> app.getSerialNumber() == serialNumber).findAny()
+//					.orElse(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,7 +46,6 @@ public class ApplianceServiceImpl implements ApplianceService {
 
 	@Override
 	public List<Appliance> getAllAppliances(Integer userId) {
-//		List<Appliance> appliances = repository.findAllById(userId);
 		return repository.findAll().stream().filter(appliance -> appliance.getUserid().equals(userId))
 				.collect(Collectors.toList());
 	}
